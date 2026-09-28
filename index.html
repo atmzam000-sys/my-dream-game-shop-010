@@ -1,46 +1,37 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MY DREAM GAME SHOP</title>
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MY DREAM GAME SHOP | เช่าเครื่องเกมรายเดือน</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#05070d;color:#f5f8ff;font-family:Arial,sans-serif}a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 18px}nav{position:sticky;top:0;background:#05070df2;border-bottom:1px solid #203252;z-index:5}.nav{height:64px;display:flex;align-items:center;justify-content:space-between}.logo{font-weight:900}.logo b,.blue{color:#25aaff}.btn{display:inline-block;padding:11px 16px;border-radius:11px;border:1px solid #258ed0;background:#0c67a9;color:#fff;font-weight:800;cursor:pointer}.green{background:#0b704b;border-color:#37dc9b}.hero{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;padding:65px 18px}.hero img{width:100%;border-radius:20px;border:1px solid #27446c}.badge{color:#72caff;border:1px solid #1c6fa8;padding:7px 10px;border-radius:99px;font-size:12px}.hero h1{font-size:clamp(42px,7vw,72px);line-height:.95}.lead,.muted{color:#a9b5ca;line-height:1.7}section{padding:45px 0}h2{font-size:30px}.tools{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}input,select,textarea{background:#080e19;color:#fff;border:1px solid #203252;border-radius:10px;padding:11px;width:100%}.tools input{max-width:420px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card,.box,.step{background:#0a101c;border:1px solid #203252;border-radius:16px;padding:16px}.icon{height:135px;border-radius:12px;background:#0a2138;display:grid;place-items:center;font-size:50px}.price{font-size:24px;font-weight:900;margin:10px 0}.tag{font-size:11px;color:#71caff}.features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.contact{display:grid;grid-template-columns:1fr 1fr;gap:15px}footer{border-top:1px solid #203252;padding:25px 0;color:#a9b5ca}.modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:16px;z-index:10}.modal.show{display:flex}.modalbox{width:min(550px,100%);background:#080d18;border:1px solid #29456c;border-radius:18px;padding:20px}.close{float:right;background:none;border:0;color:#fff;font-size:25px}@media(max-width:800px){.hero,.contact{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}}@media(max-width:520px){.grid,.features{grid-template-columns:1fr}}
-</style></head><body>
-<nav><div class="wrap nav"><div class="logo">MY DREAM <b>GAME SHOP</b></div><a class="btn" href="#games">เลือกแพ็กเกจ</a></div></nav>
-<header class="wrap hero"><div><span class="badge">🎮 PS5 • MOBILE • ONLINE SHOP</span><h1>เล่นก่อน<br><span class="blue">ได้ก่อน</span></h1><p class="lead">เว็บไซต์ร้าน MY DREAM GAME SHOP สำหรับดูสินค้าและส่งคำสั่งซื้อให้แอดมินผ่าน LINE</p><a class="btn" href="#games">เลือกแพ็กเกจ</a></div><img src="hero.png" alt="MY DREAM GAME SHOP"></header>
-<section id="games"><div class="wrap"><h2>🎮 เครื่องเกมรายเดือน</h2><div class="tools"><input id="q" placeholder="ค้นหาแพ็กเกจ..." oninput="render()"><select id="cat" onchange="render()"><option value="all">ทุกแพ็กเกจ</option><option>รายเดือน</option></select></div><div id="products" class="grid"></div></div></section>
-<section><div class="wrap"><h2>✨ จุดเด่นร้าน</h2><div class="features"><div class="box"><b>⚡ สั่งง่าย</b><p class="muted">เลือกแพ็กเกจแล้วส่งออเดอร์</p></div><div class="box"><b>📱 มือถือ</b><p class="muted">รองรับหน้าจอมือถือ</p></div><div class="box"><b>💬 แอดมิน</b><p class="muted">สอบถามรายละเอียดได้</p></div><div class="box"><b>🎮 หลายแนว</b><p class="muted">มีเกมหลายประเภท</p></div></div></div></section>
-<section><div class="wrap"><h2>⚡ วิธีสั่งซื้อ</h2><div class="steps"><div class="step"><b>01 เลือกแพ็กเกจ</b><p class="muted">กดสั่งซื้อสินค้าที่ต้องการ</p></div><div class="step"><b>02 กรอกข้อมูล</b><p class="muted">ชื่อและช่องทางติดต่อ</p></div><div class="step"><b>03 คุยกับแอดมิน</b><p class="muted">ตรวจสอบราคาและรายละเอียดก่อนชำระ</p></div></div></div></section>
-<section id="contact"><div class="wrap contact"><div class="box"><h2>📲 ติดต่อร้าน</h2><p>LINE: <b>@edsakit</b></p><p>โทร: <b>091-834-1240</b></p><p>TikTok: <b>@edsakit</b></p><a class="btn green" href="https://line.me/R/ti/p/@edsakit">เปิด LINE</a></div><div class="box"><h2>💳 การชำระเงิน</h2><p class="muted">แอดมินจะแจ้งยอดและช่องทางชำระเงินหลังตรวจสอบออเดอร์</p><b>PromptPay / SCB</b></div></div></section>
-<footer><div class="wrap">© 2026 MY DREAM GAME SHOP • ร้านอิสระ</div></footer>
-<div id="modal" class="modal"><div class="modalbox"><button class="close" onclick="closeM()">×</button><h2>📋 สมัครแพ็กเกจรายเดือน</h2><div id="chosen"></div>
-<label style="display:block;margin-top:12px;color:#a9b5ca">เลือกระยะเวลา</label>
-<select id="duration" onchange="updateTotal()" style="margin:6px 0">
-<option value="1">1 เดือน</option>
-<option value="3">3 เดือน</option>
-<option value="6">6 เดือน</option>
-<option value="12">12 เดือน</option>
-</select>
-<div id="total" style="font-size:22px;font-weight:900;margin:10px 0">รวม ฿800</div>
-<input id="name" placeholder="ชื่อผู้สั่งซื้อ"><input id="contact" placeholder="LINE / เบอร์โทร" style="margin-top:8px"><textarea id="note" placeholder="หมายเหตุ" rows="3" style="margin-top:8px"></textarea><button class="btn green" style="width:100%;margin-top:8px" onclick="order()">สมัครและติดต่อผ่าน LINE</button></div></div>
+*{box-sizing:border-box}body{margin:0;background:#05070d;color:#f5f8ff;font-family:Arial,sans-serif}.wrap{max-width:1100px;margin:auto;padding:0 18px}nav{position:sticky;top:0;background:#05070df2;border-bottom:1px solid #203252;z-index:5}.nav{height:64px;display:flex;justify-content:space-between;align-items:center}.logo{font-weight:900}.logo b,.blue{color:#25aaff}.btn{display:inline-block;padding:11px 16px;border-radius:11px;border:1px solid #258ed0;background:#0c67a9;color:#fff;font-weight:800;cursor:pointer}.green{background:#0b704b;border-color:#37dc9b}.hero{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;padding:60px 18px}.hero img{width:100%;border-radius:20px;border:1px solid #27446c}.hero h1{font-size:clamp(42px,7vw,72px);line-height:.95}.lead,.muted{color:#a9b5ca;line-height:1.7}section{padding:45px 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card,.box{background:#0a101c;border:1px solid #203252;border-radius:16px;padding:17px}.icon{height:145px;border-radius:12px;background:#0a2138;display:grid;place-items:center;font-size:52px}.price{font-size:26px;font-weight:900;margin:10px 0}.tag{color:#70caff;font-size:12px}.input{width:100%;background:#080e19;color:white;border:1px solid #203252;border-radius:10px;padding:11px;margin:5px 0}.modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:16px;z-index:20}.modal.show{display:flex}.modalbox{width:min(560px,100%);background:#080d18;border:1px solid #29456c;border-radius:18px;padding:20px}.close{float:right;background:none;border:0;color:#fff;font-size:26px}.total{font-size:23px;font-weight:900;margin:12px 0}footer{border-top:1px solid #203252;padding:25px 0;color:#a9b5ca}@media(max-width:800px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav"><div class="logo">MY DREAM <b>GAME SHOP</b></div><a class="btn" href="#plans">แพ็กเกจ</a></div></nav>
+<header class="wrap hero"><div><span class="tag">🎮 PS5 • รายเดือน</span><h1>เช่าเครื่องเกม<br><span class="blue">รายเดือน</span></h1><p class="lead">เลือกแพ็กเกจ ระยะเวลา และส่งคำสั่งซื้อเข้าระบบร้านโดยตรง</p><a class="btn" href="#plans">ดูแพ็กเกจ</a></div><img src="hero.png" alt="MY DREAM GAME SHOP"></header>
+<section id="plans"><div class="wrap"><h2>🎮 แพ็กเกจเครื่องเกม</h2><p class="muted">ราคาจะถูกคำนวณจากฐานข้อมูลของร้านตอนสร้างออเดอร์</p><div id="products" class="grid"></div></div></section>
+<footer><div class="wrap">© 2026 MY DREAM GAME SHOP • ติดต่อ LINE @edsakit</div></footer>
+<div id="modal" class="modal"><div class="modalbox"><button class="close" onclick="closeModal()">×</button><h2>📋 สั่งซื้อ</h2><div id="chosen"></div><label>ระยะเวลา</label><select id="duration" class="input" onchange="calc()"><option value="1">1 เดือน</option><option value="3">3 เดือน</option><option value="6">6 เดือน</option><option value="12">12 เดือน</option></select><div id="total" class="total">รวม ฿800</div><input id="name" class="input" placeholder="ชื่อผู้สั่งซื้อ"><input id="contact" class="input" placeholder="LINE / เบอร์โทร"><textarea id="note" class="input" rows="3" placeholder="หมายเหตุ"></textarea><button class="btn green" style="width:100%" onclick="submitOrder()">ส่งออเดอร์</button><p class="muted" style="font-size:12px">หลังส่งออเดอร์ แอดมินจะตรวจสอบและติดต่อกลับ</p></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 <script>
-const p=[
-["เครื่องเกม PS5 รายเดือน","รายเดือน",800,"🎮","ชำระครั้งแรก 500 บาท + ส่วนที่เหลือ 300 บาท"],
-["เครื่องเกม PS5 รายเดือน + แพ็กเกจพิเศษ","รายเดือน",1000,"🔥","แพ็กเกจตัวอย่าง — ติดต่อร้านเพื่อดูรายละเอียด"],
-["เครื่องเกม PS5 รายเดือน แพ็กเกจครอบครัว","รายเดือน",1200,"👥","แพ็กเกจตัวอย่าง — ติดต่อร้านเพื่อดูรายละเอียด"]
-];let selected;
-const money=n=>"฿"+n.toLocaleString("th-TH");
-function render(){let q=document.getElementById("q").value.toLowerCase(),c=document.getElementById("cat").value;document.getElementById("products").innerHTML=p.filter(x=>(c=="all"||x[1]==c)&&x[0].toLowerCase().includes(q)).map((x,i)=>`<article class="card"><div class="icon">${x[3]}</div><span class="tag">${x[1]}</span><h3>${x[0]}</h3><div class="muted">${x[4]}</div><div class="price">${money(x[2])}<small style="font-size:13px;color:#a9b5ca"> / เดือน</small></div><button class="btn" onclick="openM(${i})">สมัครแพ็กเกจ</button></article>`).join("")}
-function openM(i){selected=p[i];document.getElementById("chosen").innerHTML="<b>"+selected[3]+" "+selected[0]+"</b> — "+money(selected[2]);document.getElementById("modal").classList.add("show");updateTotal()}
-function closeM(){document.getElementById("modal").classList.remove("show")}
-function updateTotal(){
-let months=Number(document.getElementById("duration").value||1);
-let total=selected[2]*months;
-document.getElementById("total").textContent="รวม ฿"+total.toLocaleString("th-TH");
+const db=supabase.createClient(window.SUPABASE_URL,window.SUPABASE_KEY);let products=[],selected=null;
+const money=n=>"฿"+Number(n).toLocaleString("th-TH");
+async function load(){const {data,error}=await db.from("products").select("id,name,category,price,icon,description").eq("active",true).order("created_at");if(error){document.getElementById("products").innerHTML="<p class='muted'>ยังไม่ได้เชื่อมฐานข้อมูล กรุณาตั้งค่า Supabase ก่อน</p>";return}products=data||[];document.getElementById("products").innerHTML=products.map((p,i)=>`<article class="card"><div class="icon">${p.icon||"🎮"}</div><span class="tag">${p.category}</span><h3>${esc(p.name)}</h3><p class="muted">${esc(p.description||"")}</p><div class="price">${money(p.price)} / เดือน</div><button class="btn" onclick="openOrder(${i})">สมัครแพ็กเกจ</button></article>`).join("")}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function openOrder(i){selected=products[i];document.getElementById("chosen").innerHTML=`<b>${esc(selected.icon||"🎮")} ${esc(selected.name)}</b><div class="muted">${money(selected.price)} / เดือน</div>`;document.getElementById("modal").classList.add("show");calc()}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function calc(){if(!selected)return;let m=Number(document.getElementById("duration").value);document.getElementById("total").textContent="รวม "+money(selected.price*m)}
+async function submitOrder(){
+if(!selected)return;let name=document.getElementById("name").value.trim(),contact=document.getElementById("contact").value.trim(),note=document.getElementById("note").value.trim(),months=Number(document.getElementById("duration").value);
+if(!name||!contact)return alert("กรุณากรอกชื่อและช่องทางติดต่อ");
+const {data,error}=await db.rpc("create_order",{p_customer_name:name,p_customer_contact:contact,p_note:note,p_product_id:selected.id,p_duration_months:months});
+if(error){alert("สร้างออเดอร์ไม่สำเร็จ: "+error.message);return}
+const o=data?.[0];closeModal();
+const msg=`ออเดอร์ MY DREAM GAME SHOP%0Aเลขออเดอร์: ${encodeURIComponent(o.order_no)}%0Aแพ็กเกจ: ${encodeURIComponent(selected.name)}%0Aระยะเวลา: ${months} เดือน%0Aยอดรวม: ${encodeURIComponent(money(o.total))}%0Aชื่อ: ${encodeURIComponent(name)}%0Aติดต่อ: ${encodeURIComponent(contact)}`;
+location.href="https://line.me/R/ti/p/@edsakit?text="+msg;
 }
-function order(){
-let n=document.getElementById("name").value.trim(),c=document.getElementById("contact").value.trim(),note=document.getElementById("note").value.trim();
-if(!n||!c)return alert("กรุณากรอกชื่อและช่องทางติดต่อ");
-let months=Number(document.getElementById("duration").value||1),total=selected[2]*months;
-let id="MD"+Date.now().toString().slice(-8);
-let m=`สมัครแพ็กเกจ MY DREAM GAME SHOP%0Aเลขรายการ: ${id}%0Aแพ็กเกจ: ${encodeURIComponent(selected[0])}%0Aระยะเวลา: ${months} เดือน%0Aค่าบริการ: ${total} บาท%0Aชื่อ: ${encodeURIComponent(n)}%0Aติดต่อ: ${encodeURIComponent(c)}%0Aหมายเหตุ: ${encodeURIComponent(note||"-")}`;
-location.href="https://line.me/R/ti/p/@edsakit?text="+m
-}
-render();
-</script></body></html>
+load();
+</script>
+</body></html>
