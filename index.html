@@ -33,7 +33,7 @@ footer{border-top:1px solid #203252;padding:25px 0;color:#a9b5ca}
 <label>ระยะเวลา</label><select id="duration" class="input" onchange="calc()"><option value="1">1 เดือน</option><option value="3">3 เดือน</option><option value="6">6 เดือน</option><option value="12">12 เดือน</option></select>
 <div id="total" class="total">รวม ฿800</div>
 <div class="paybox"><b>💳 การชำระเงิน</b><p class="muted">โอนตามช่องทางชำระเงินที่ร้านแจ้ง แล้วแนบสลิปด้านล่างเพื่อยืนยันการชำระเงิน</p><p><b>PromptPay / SCB</b></p><p class="muted">หากยังไม่ได้รับข้อมูลบัญชี กรุณาติดต่อ LINE @edsakit</p></div>
-<label>หลักฐานการโอน (JPG / PNG / WEBP ไม่เกิน 5MB)</label>
+<div id="paymentInfo"></div><label>หลักฐานการโอน (JPG / PNG / WEBP ไม่เกิน 5MB)</label>
 <input id="receipt" class="input file" type="file" accept="image/jpeg,image/png,image/webp">
 <input id="name" class="input" placeholder="ชื่อผู้สั่งซื้อ">
 <input id="contact" class="input" placeholder="LINE / เบอร์โทร">
@@ -46,9 +46,32 @@ footer{border-top:1px solid #203252;padding:25px 0;color:#a9b5ca}
 <script src="supabase-config.js"></script>
 <script>
 const db=supabase.createClient(window.SUPABASE_URL,window.SUPABASE_KEY);
-let products=[],selected=null,createdOrder=null;
+let products=[],selected=null,createdOrder=null,payment={promptpay_number:"",promptpay_name:"",scb_account_name:"",scb_account_number:"",qr_image_path:""};
 const money=n=>"฿"+Number(n).toLocaleString("th-TH");
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+async function loadPayment(){
+ const {data,error}=await db.from("shop_settings")
+   .select("promptpay_number,promptpay_name,scb_account_name,scb_account_number,qr_image_path")
+   .eq("id",true).maybeSingle();
+ if(!error && data){ payment=data; renderPayment(); }
+}
+function renderPayment(){
+ const box=document.getElementById("paymentInfo");
+ if(!box)return;
+ let qr="";
+ if(payment.qr_image_path){
+   const r=db.storage.from("shop-assets").getPublicUrl(payment.qr_image_path);
+   if(r.data?.publicUrl) qr=`<img src="${r.data.publicUrl}" alt="QR ชำระเงิน" style="width:min(260px,100%);border-radius:12px;border:1px solid #29456c;margin-top:8px">`;
+ }
+ box.innerHTML=`<div class="paybox"><b>💳 ช่องทางชำระเงิน</b>
+ ${payment.promptpay_number?`<p>PromptPay: <b>${esc(payment.promptpay_number)}</b></p>`:""}
+ ${payment.promptpay_name?`<p class="muted">ชื่อผู้รับ: ${esc(payment.promptpay_name)}</p>`:""}
+ ${payment.scb_account_number?`<p>SCB: <b>${esc(payment.scb_account_number)}</b></p>`:""}
+ ${payment.scb_account_name?`<p class="muted">ชื่อบัญชี: ${esc(payment.scb_account_name)}</p>`:""}
+ ${qr}
+ ${(!payment.promptpay_number&&!payment.scb_account_number&&!payment.qr_image_path)?`<p class="muted">ร้านยังไม่ได้ตั้งค่าข้อมูลชำระเงิน กรุณาติดต่อ LINE @edsakit</p>`:""}
+ </div>`;
+}
 async function load(){
  const {data,error}=await db.from("products").select("id,name,category,price,icon,description").eq("active",true).order("created_at");
  if(error){document.getElementById("products").innerHTML="<p class='muted'>โหลดแพ็กเกจไม่สำเร็จ: "+esc(error.message)+"</p>";return}
@@ -95,6 +118,6 @@ async function submitOrder(){
  btn.disabled=false;
  btn.onclick=()=>location.href="https://line.me/R/ti/p/@edsakit?text="+msg;
 }
-load();
+loadPayment();load();
 </script>
 </body></html>

@@ -3,13 +3,66 @@
 *{box-sizing:border-box}body{margin:0;background:#05070d;color:#f5f8ff;font-family:Arial,sans-serif}.wrap{max-width:1100px;margin:auto;padding:25px 18px}.card{background:#0a101c;border:1px solid #203252;border-radius:15px;padding:16px;margin:12px 0}.input,select{width:100%;background:#080e19;color:white;border:1px solid #203252;border-radius:9px;padding:11px;margin:5px 0}.btn{padding:10px 14px;border-radius:10px;border:1px solid #258ed0;background:#0c67a9;color:#fff;font-weight:800;cursor:pointer}.green{background:#0b704b;border-color:#37dc9b}.red{background:#6b202b;border-color:#a64252}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.muted{color:#a9b5ca}.status{padding:5px 9px;border-radius:99px;background:#15243b;font-size:12px}.receipt{max-width:100%;border:1px solid #29456c;border-radius:10px;margin-top:10px;display:block}.small{font-size:12px;color:#a9b5ca}
 </style></head><body><div class="wrap"><div class="row"><h1>🔐 MY DREAM GAME SHOP — แอดมิน</h1><button class="btn red" onclick="logout()">ออกจากระบบ</button></div>
 <div id="loginBox"><div class="card"><h2>เข้าสู่ระบบแอดมิน</h2><input id="email" class="input" placeholder="อีเมล"><input id="password" type="password" class="input" placeholder="รหัสผ่าน"><button class="btn" onclick="login()">เข้าสู่ระบบ</button><p id="msg" class="muted"></p></div></div>
-<div id="panel" style="display:none"><div class="card"><div class="row"><h2>📦 ออเดอร์</h2><button class="btn green" onclick="loadOrders()">รีเฟรช</button></div><div id="orders"></div></div></div>
+<div id="panel" style="display:none">
+<div class="card"><div class="row"><h2>📦 ออเดอร์</h2><button class="btn green" onclick="loadOrders()">รีเฟรช</button></div><div id="orders"></div></div>
+<div class="card">
+<h2>💳 ตั้งค่าการชำระเงิน</h2>
+<p class="muted">ข้อมูลนี้จะแสดงให้ลูกค้าเห็นในหน้า Checkout</p>
+<input id="ppNumber" class="input" placeholder="PromptPay เช่น 0XXXXXXXXX">
+<input id="ppName" class="input" placeholder="ชื่อผู้รับ PromptPay">
+<input id="scbName" class="input" placeholder="ชื่อบัญชี SCB">
+<input id="scbNumber" class="input" placeholder="เลขบัญชี SCB">
+<label class="small">QR ชำระเงิน (JPG / PNG / WEBP ไม่เกิน 5MB)</label>
+<input id="qrFile" class="input" type="file" accept="image/jpeg,image/png,image/webp">
+<div id="currentQR"></div>
+<button class="btn green" onclick="savePayment()">บันทึกข้อมูลการชำระเงิน</button>
+<p id="settingMsg" class="muted"></p>
+</div></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script>
 const db=supabase.createClient(window.SUPABASE_URL,window.SUPABASE_KEY);
 async function login(){const {error}=await db.auth.signInWithPassword({email:document.getElementById("email").value.trim(),password:document.getElementById("password").value});if(error){document.getElementById("msg").textContent=error.message;return}await check()}
 async function check(){const {data:{user}}=await db.auth.getUser();if(!user){document.getElementById("loginBox").style.display="block";document.getElementById("panel").style.display="none";return}if(user.app_metadata?.role!=="admin"){document.getElementById("msg").textContent="บัญชีนี้ไม่มีสิทธิ์แอดมิน";await db.auth.signOut();return}document.getElementById("loginBox").style.display="none";document.getElementById("panel").style.display="block";loadOrders()}
 async function logout(){await db.auth.signOut();check()}
+async function loadSettings(){
+ const {data,error}=await db.from("shop_settings").select("*").eq("id",true).maybeSingle();
+ if(error||!data)return;
+ document.getElementById("ppNumber").value=data.promptpay_number||"";
+ document.getElementById("ppName").value=data.promptpay_name||"";
+ document.getElementById("scbName").value=data.scb_account_name||"";
+ document.getElementById("scbNumber").value=data.scb_account_number||"";
+ if(data.qr_image_path){
+   const s=db.storage.from("shop-assets").getPublicUrl(data.qr_image_path);
+   if(s.data?.publicUrl) document.getElementById("currentQR").innerHTML=`<p class="small">QR ปัจจุบัน</p><img src="${s.data.publicUrl}" style="max-width:220px;border-radius:10px;border:1px solid #29456c">`;
+ }
+}
+async function savePayment(){
+ const msg=document.getElementById("settingMsg");
+ msg.textContent="กำลังบันทึก...";
+ let qrPath="";
+ const file=document.getElementById("qrFile").files[0];
+ if(file){
+   if(!["image/jpeg","image/png","image/webp"].includes(file.type)){msg.textContent="ไฟล์ QR ต้องเป็น JPG/PNG/WEBP";return}
+   if(file.size>5*1024*1024){msg.textContent="ไฟล์ QR ต้องไม่เกิน 5MB";return}
+   const ext=file.type==="image/jpeg"?"jpg":file.type==="image/png"?"png":"webp";
+   qrPath=`payment-qr.${ext}`;
+   const up=await db.storage.from("shop-assets").upload(qrPath,file,{contentType:file.type,upsert:true});
+   if(up.error){msg.textContent="อัปโหลด QR ไม่สำเร็จ: "+up.error.message;return}
+ }else{
+   const {data:old}=await db.from("shop_settings").select("qr_image_path").eq("id",true).maybeSingle();
+   qrPath=old?.qr_image_path||"";
+ }
+ const {error}=await db.from("shop_settings").update({
+   promptpay_number:document.getElementById("ppNumber").value.trim(),
+   promptpay_name:document.getElementById("ppName").value.trim(),
+   scb_account_name:document.getElementById("scbName").value.trim(),
+   scb_account_number:document.getElementById("scbNumber").value.trim(),
+   qr_image_path:qrPath,
+   updated_at:new Date().toISOString()
+ }).eq("id",true);
+ msg.textContent=error?"บันทึกไม่สำเร็จ: "+error.message:"✅ บันทึกข้อมูลการชำระเงินแล้ว";
+ if(!error)loadSettings();
+}
 async function loadOrders(){
  const {data,error}=await db.from("orders").select("*").order("created_at",{ascending:false});
  if(error){document.getElementById("orders").innerHTML="<p class='muted'>โหลดออเดอร์ไม่ได้: "+esc(error.message)+"</p>";return}
